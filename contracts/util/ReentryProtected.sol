@@ -3,20 +3,20 @@ pragma solidity ^0.4.18;
 contract ReentryProtected {
 
   // The reentry protection state mutex.
-  bool private rentrancy_lock = false;
+  bool private reentrancy_lock = false;
   
-  // Sets and resets mutex in order to block functin reentry
+  // Sets and resets mutex in order to block function reentry
   modifier preventReentry() {
-    require(!rentrancy_lock);
-    rentrancy_lock = true;
+    require(!reentrancy_lock);
+    reentrancy_lock = true;
     _;
-    delete rentrancy_lock;
+    delete reentrancy_lock;
     return;
   }
 
   // Blocks function entry if mutex is set
   modifier noReentry() {
-    require(!rentrancy_lock);
+    require(!reentrancy_lock);
     _;
   }
 }

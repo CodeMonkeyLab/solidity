@@ -21,9 +21,33 @@ contract Ownable {
     owner = msg.sender;
   }
 
+  // Only Owner can call
   modifier onlyOwner() {
     require(msg.sender == owner);
     _;
+  }
+
+  // To initiate an ownership change
+  function changeOwner(address _newOwner) public
+    noReentry
+    onlyOwner
+    returns (bool)
+  {
+    ChangeOwnerTo(_newOwner);
+    newOwner = _newOwner;
+    return true;
+  }
+
+  // To claim ownership. Required to prove new address can call the contract.
+  function claimOwnership() public
+    noReentry
+    returns (bool)
+  {
+    require(msg.sender == newOwner);
+    ChangedOwner(owner, newOwner);
+    owner = newOwner;
+    newOwner = 0x0;
+    return true;
   }
 
 
@@ -41,27 +65,5 @@ contract Ownable {
 * Change Owner
 ***********************/
 
-  // To initiate an ownership change
-  function changeOwner(address _newOwner)
-    public
-    noReentry
-    onlyOwner
-    returns (bool)
-  {
-    ChangeOwnerTo(_newOwner);
-    newOwner = _newOwner;
-    return true;
-  }
 
-  // To accept ownership. Required to prove new address can call the contract.
-  function acceptOwnership()
-    public
-    noReentry
-    returns (bool)
-  {
-    require(msg.sender == newOwner);
-    ChangedOwner(owner, newOwner);
-    owner = newOwner;
-    return true;
-  }
 }
