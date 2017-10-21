@@ -11,7 +11,6 @@ contract ReentryProtected {
     reentrancy_lock = true;
     _;
     delete reentrancy_lock;
-    return;
   }
 
   // Blocks function entry if mutex is set
