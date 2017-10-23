@@ -5,7 +5,7 @@ import '../math/SafeMath.sol';
 
 contract StdToken is ERC20 {
 
-    using SafeMath for unint256;
+    using SafeMath for uint256;
 
     // Balance of each owner
     mapping (address => uint256) balances;

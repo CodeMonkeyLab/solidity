@@ -3,7 +3,7 @@ pragma solidity ^0.4.18;
 import './StdToken.sol';
 import '../util/Ownable.sol';
 
-contract MintToken is StdToken, Ownable, ReentryProtected {
+contract MintToken is StdToken, Ownable {
 
     bool public mintingFinished = false;
 

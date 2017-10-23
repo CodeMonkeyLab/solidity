@@ -5,7 +5,7 @@ import './ReentryProtected.sol';
 /**
  * Only allow Owner to do action
  */
-contract Ownable {
+contract Ownable is ReentryProtected {
 
   // Current owner must be set manually
   address public owner;
