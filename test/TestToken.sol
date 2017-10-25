@@ -1,6 +1,10 @@
 pragma solidity ^0.4.18;
 
 
+contract TestTokenConfig {
+
+}
+
 library SafeMath {
 
     // a * b
@@ -65,8 +69,8 @@ contract Ownable is ReentryProtected {
      * @dev The Ownable constructor sets the original `owner` of the contract to the sender
      * account.
      */
-    function Ownable() {
-        owner = "0xe1318D2092c1F9731cb316d4EB3cF268A8147D00";
+    function Ownable() internal {
+        owner = 0xe1318D2092c1F9731cb316d4EB3cF268A8147D00;
     }
 
     // Only Owner can call
@@ -179,7 +183,7 @@ contract StdToken is ERC20 {
     // Allowance mapping
     mapping (address => mapping (address => uint256)) allowed;
 
-    function balanceOf(address _owner) public constant returns (uint256) {
+    function balanceOf(address _owner) public view returns (uint256) {
         return balances[_owner];
     }
 
@@ -274,9 +278,11 @@ contract TestToken is MintToken {
     // Token Symbol Short 3+ letters
     string public constant symbol = "TTT";
 
-    function TestToken() {
+    function TestToken() public {
         require(bytes(symbol).length > 0);
         require(bytes(name).length > 0);
+        require(owner != 0x0);
+        require(decimals > 0);
         totalSupply = 0;
     }
 }
