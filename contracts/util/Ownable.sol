@@ -21,11 +21,19 @@ contract Ownable is ReentryProtected {
     owner = msg.sender;
   }
 
+/**********************
+* Modifiers
+***********************/
+
   // Only Owner can call
   modifier onlyOwner() {
     require(msg.sender == owner);
     _;
   }
+
+/**********************
+* Functions
+***********************/
 
   // To initiate an ownership change
   function changeOwner(address _newOwner) public
@@ -60,10 +68,5 @@ contract Ownable is ReentryProtected {
 
   // Logged when new owner accepts ownership
   event ChangedOwner(address indexed _from, address indexed _to);
-
-/**********************
-* Change Owner
-***********************/
-
 
 }
